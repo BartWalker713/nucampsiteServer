@@ -4,7 +4,7 @@ const Partner = require('../models/partner');
 
 partnerRouter.route('/')
     .get((req, res, next) => {
-        Promotion.find()
+        Partner.find()
             .then(partners => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -13,9 +13,9 @@ partnerRouter.route('/')
             .catch(err => next(err));
     })
     .post((req, res, next) => {
-        Promotion.create(req.body)
+        Partner.create(req.body)
             .then(partner => {
-                console.log('Promotion Created ', partner);
+                console.log('Partner Created ', partner);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(partner);
@@ -27,7 +27,7 @@ partnerRouter.route('/')
         res.end('PUT operation not supported on /partners');
     })
     .delete((req, res, next) => {
-        Promotion.deleteMany()
+        Partner.deleteMany()
             .then(response => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -38,7 +38,7 @@ partnerRouter.route('/')
 
 partnerRouter.route('/:partnerId')
     .get((req, res, next) => {
-        Promotion.findById(req.params.partnerId)
+        Partner.findById(req.params.partnerId)
             .then(partner => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -51,7 +51,7 @@ partnerRouter.route('/:partnerId')
         res.end(`POST operation not supported on /partners/${req.params.partnerId}`);
     })
     .put((req, res, next) => {
-        Promotion.findByIdAndUpdate(req.params.partnerId, {
+        Partner.findByIdAndUpdate(req.params.partnerId, {
             $set: req.body
         }, { new: true })
             .then(partner => {
@@ -62,7 +62,7 @@ partnerRouter.route('/:partnerId')
             .catch(err => next(err));
     })
     .delete((req, res, next) => {
-        Promotion.findByIdAndDelete(req.params.partnerId)
+        Partner.findByIdAndDelete(req.params.partnerId)
             .then(response => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -73,14 +73,14 @@ partnerRouter.route('/:partnerId')
 
 // partnerRouter.route('/:partnerId/comments')
 //     .get((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner) {
 //                     res.statusCode = 200;
 //                     res.setHeader('Content-Type', 'application/json');
 //                     res.json(partner.comments);
 //                 } else {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 }
@@ -88,7 +88,7 @@ partnerRouter.route('/:partnerId')
 //             .catch(err => next(err));
 //     })
 //     .post((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner) {
 //                     partner.comments.push(req.body);
@@ -100,7 +100,7 @@ partnerRouter.route('/:partnerId')
 //                         })
 //                         .catch(err => next(err));
 //                 } else {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 }
@@ -112,7 +112,7 @@ partnerRouter.route('/:partnerId')
 //         res.end(`PUT operation not supported on /partners/${req.params.partnerId}/comments`);
 //     })
 //     .delete((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner) {
 //                     for (let i = (partner.comments.length - 1); i >= 0; i--) {
@@ -126,7 +126,7 @@ partnerRouter.route('/:partnerId')
 //                         })
 //                         .catch(err => next(err));
 //                 } else {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 }
@@ -136,14 +136,14 @@ partnerRouter.route('/:partnerId')
 
 // partnerRouter.route('/:partnerId/comments/:commentId')
 //     .get((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner && partner.comments.id(req.params.commentId)) {
 //                     res.statusCode = 200;
 //                     res.setHeader('Content-Type', 'application/json');
 //                     res.json(partner.comments.id(req.params.commentId));
 //                 } else if (!partner) {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 } else {
@@ -159,7 +159,7 @@ partnerRouter.route('/:partnerId')
 //         res.end(`POST operation not supported on /partners/${req.params.partnerId}/comments/${req.params.commentId}`);
 //     })
 //     .put((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner && partner.comments.id(req.params.commentId)) {
 //                     if (req.body.rating) {
@@ -176,7 +176,7 @@ partnerRouter.route('/:partnerId')
 //                         })
 //                         .catch(err => next(err));
 //                 } else if (!partner) {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 } else {
@@ -188,7 +188,7 @@ partnerRouter.route('/:partnerId')
 //             .catch(err => next(err));
 //     })
 //     .delete((req, res, next) => {
-//         Promotion.findById(req.params.partnerId)
+//         Partner.findById(req.params.partnerId)
 //             .then(partner => {
 //                 if (partner && partner.comments.id(req.params.commentId)) {
 //                     partner.comments.id(req.params.commentId).remove();
@@ -200,7 +200,7 @@ partnerRouter.route('/:partnerId')
 //                         })
 //                         .catch(err => next(err));
 //                 } else if (!partner) {
-//                     err = new Error(`Promotion ${req.params.partnerId} not found`);
+//                     err = new Error(`Partner ${req.params.partnerId} not found`);
 //                     err.status = 404;
 //                     return next(err);
 //                 } else {
